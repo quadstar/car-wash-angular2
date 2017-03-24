@@ -1,0 +1,43 @@
+<h1>
+  {{title}}
+</h1>
+<div *ngIf="!done">
+  <div>
+    <label>Vehicle Type: </label>
+    <input type="radio" value="car" 
+      [(ngModel)]="vehicle.vehicleType" 
+      (ngModelChange)="changeVehicleType()">Car
+    <input type="radio" value="truck" 
+      [(ngModel)]="vehicle.vehicleType"
+      (ngModelChange)="changeVehicleType()">Truck
+  </div> 
+
+  <div>
+    <label>License Plate #: </label> 
+      <input type="text" [(ngModel)]="vehicle.plate" (ngModelChange)="calcTotal()">
+  </div>
+
+  <div *ngIf="vehicle.isTruck"> 
+    <label>Truck Bed Condition</label>
+      <br />
+      <input type="checkbox" [(ngModel)]="vehicle.bed.dirty" (ngModelChange)="calcTotal()"> Does your bed have mud in it? <br />
+      <input type="checkbox" [(ngModel)]="vehicle.bed.down"> Is your bed down? 
+  </div>
+
+  <div> {{total}} </div>
+
+  <button (click)="checkout()"> Checkout </button>
+
+  <span style="color:red;"> {{message}} </span>
+</div>
+
+<div *ngIf="done">
+  <div *ngIf="washed">
+    Your car has been washed.
+  </div>
+  <div *ngIf="!washed">
+    There was a problem and your car was not washed.
+  </div>
+  <button (click)="init()"> Back </button>
+</div>
+
